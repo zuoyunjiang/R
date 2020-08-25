@@ -1,0 +1,58 @@
+####zsj ####
+####2020-8-25####
+###anova####
+
+###read data
+setwd("D:/Rtest/")
+
+data <-read.csv(file = "CO2-YD.csv",header = TRUE,sep = ',') 
+head(data)
+attach(data)
+### yinzi shuju  fenzu 
+data$YD1 <- factor(data$YD1, labels = c("BL",'MH','MWS','SM'))
+data$CL1 <- factor(data$CL1,labels = c('MT','YZ'))
+detach(data)
+attach(data)
+summary(YD1)
+summary(CL1)
+#### dan yin su fangcha fenxi -----YANGDI 3####
+
+zsj_anova <- anova(lm(CO2flux~YD1))
+zsj_anova
+## picture
+
+xbar <- tapply(CO2flux, YD1, mean)
+s <- tapply(CO2flux, YD1, sd)
+n <- tapply(CO2flux, YD1, length)
+sem <- s/sqrt(n)
+stripchart(CO2flux~YD1, method='jitter', jitter =0.05, pch = 16, vert = T)
+arrows(1:4, xbar+sem, 1:4, xbar-sem, angle = 90, code = 3, length = .1)
+lines(1:4, xbar,pch=4, type = 'b', cex = 2)
+
+#### dan yin su fangcha fenxi -----YANGDI ####
+
+zsj_anova_1 <- anova(lm(CO2flux~CL1))
+zsj_anova_1
+## picture
+
+xbar <- tapply(CO2flux, CL1, mean)
+s <- tapply(CO2flux, CL1, sd)
+n <- tapply(CO2flux, CL1, length)
+sem <- s/sqrt(n)
+stripchart(CO2flux~CL1, method='jitter', jitter =0.05, pch = 16, vert = T)
+arrows(1:2, xbar+sem, 1:2, xbar-sem, angle = 90, code = 3, length = .1)
+lines(1:2, xbar,pch=4, type = 'b', cex = 2)
+
+#### shuang yinsu fangcha fenxi ####
+
+sys <- anova(lm(CO2flux~YD1 + CL1))
+sys
+##
+interaction.plot( YD1, CL1, CO2flux)
+
+
+####chognfu  fang cha fenxi ####
+cf_anova<- anova(lm(CO2flux~YD1*CL1))
+cf_anova
+
+tapply(CO2flux,list(YD1,CL1),mean)
