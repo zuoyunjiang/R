@@ -1,0 +1,61 @@
+#### qi qing ####
+#### 8-28 ####
+getwd()
+setwd('E:/')
+
+#input file name to a 
+a <- list.files('./TR45/')
+a
+# input file name dir
+dir_a <- paste('./TR45/',a ,sep = '')
+dir_a 
+# length
+n <- length(a)
+n
+# define merge.data
+data <- read.csv(file = dir_a[1],header = TRUE,sep = ',')
+data <- data[which(data$V1==2030),]
+merge.data <- data[,3]
+
+## xunhuan ---select V3 to data---merge data to merge.data
+for(i in 2:n) {
+  data<- read.csv(file = dir_a[i],header = TRUE,sep = ',')
+  data <- data[which(data$V1==2030),]   # select 2030
+  data <- data[,3] # select v3 radn
+  merge.data <- cbind(merge.data, data) # merge data
+}
+write.csv(merge.data, file = './2030.csv', row.names = F)  
+
+
+
+############################################################################
+getwd()
+setwd('E:/东北地区未来气候数据/')
+
+dir <- list.dirs('./test/')
+dir
+
+n <- length(dir)
+
+for(i in 2:n){
+  a <- list.files(dir[2])
+  a
+  dir_a <- paste('./test/',substr(dir[2],9,18),'/',a,sep = '')
+  dir_a
+  m <- length(dir_a)
+  data <- read.csv(file = dir_a[1],header = TRUE,sep = ',')
+  data <- data[which(data$V1==2030),]
+  merge.data <- data[,3]
+  
+  ## xunhuan ---select V3 to data---merge data to merge.data
+  for(i in 2:m) {
+    data<- read.csv(file = dir_a[i],header = TRUE,sep = ',')
+    data <- data[which(data$V1==2030),]   # select 2030
+    data <- data[,3] # select v3 radn
+    merge.data <- cbind(merge.data, data) # merge data
+  }
+  filename <- substr(a[1],1,9)
+  filename <- paste(filename,'.csv')
+  write.csv(merge.data, file = filename, row.names = F) 
+  }
+###
