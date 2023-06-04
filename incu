@@ -1,0 +1,839 @@
+####zuoyunjiang zuoyunjiang@iga.ac.cn##########
+library(readxl)
+library(ggplot2)
+library(reshape2)
+library(ggthemes)
+library(dplyr)
+library(gg.gap)
+library(multcompView)
+
+####methane 5deg C####
+p_data1 <- read_excel('D:/AAAA-资料E盘/data/培养实验/5°methane.xlsx')
+meth_5 <- as.matrix(p_data1[1:32,1:23])
+colnames(meth_5) <- meth_5[1,]
+meth_5 <- meth_5[-1,]
+meth_5 <- meth_5[,c(1,2,5,8,11,14,17,20,23)]
+meth_5 <- as.data.frame(meth_5)
+meth_51 <- melt(meth_5,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_51[,1] <- as.double(meth_51[,1])
+meth_51[,3] <- as.double(meth_51[,3])
+ggplot(meth_51,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'Methane emission rate-5℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Methane emission rate (μgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+
+####yanshui####
+meth_5y <- as.matrix(p_data1[1:32,1:30])
+colnames(meth_5y) <- meth_5y[1,]
+meth_5y <- meth_5y[-1,]
+meth_5y <- meth_5y[1:24,c(1,2,5,26,29)]
+meth_5y <- as.data.frame(meth_5y)
+meth_5y1 <- melt(meth_5y,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_5y1[,1] <- as.double(meth_5y1[,1])
+meth_5y1[,3] <- as.double(meth_5y1[,3])
+meth_5y1$flooded <- c(rep('NO',48),rep('YES',48))
+# meth_5y1$Depth[49:96] <- meth_5y1$Depth[1:48]
+
+ggplot(meth_5y1,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'Methane emission rate-5℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Methane emission rate (μgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+
+
+########meth-15#######
+p_data <- read_excel('D:/AAAA-资料E盘/data/培养实验/15°methane.xlsx')
+meth_15 <- as.matrix(p_data[1:32,1:23])
+colnames(meth_15) <- meth_15[1,]
+meth_15 <- meth_15[-1,]
+meth_15 <- meth_15[,c(1,2,5,8,11,14,17,20,23)]
+meth_15 <- as.data.frame(meth_15)
+meth_151 <- melt(meth_15,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_151[,1] <- as.double(meth_151[,1])
+meth_151[,3] <- as.double(meth_151[,3])
+ggplot(meth_151,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'Methane emission rate-15℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Methane emission rate (μgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+####yanshui-15####
+meth_15y <- as.matrix(p_data[1:32,1:30])
+colnames(meth_15y) <- meth_15y[1,]
+meth_15y <- meth_15y[-1,]
+meth_15y <- meth_15y[1:24,c(1,2,5,26,29)]
+meth_15y <- as.data.frame(meth_15y)
+meth_15y1 <- melt(meth_15y,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_15y1[,1] <- as.double(meth_15y1[,1])
+meth_15y1[,3] <- as.double(meth_15y1[,3])
+meth_15y1$flooded <- c(rep('NO',48),rep('YES',48))
+# meth_15y1$Depth[49:96] <- meth_15y1$Depth[1:48]
+
+ggplot(meth_15y1,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'Methane emission rate-15℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Methane emission rate (μgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+
+######co2 -5######
+p_data2 <- read_excel('D:/AAAA-资料E盘/data/培养实验/5°CO2.xlsx')
+co2_5 <- as.matrix(p_data2[1:32,1:23])
+colnames(co2_5) <- co2_5[1,]
+co2_5 <- co2_5[-1,]
+co2_5 <- co2_5[,c(1,2,5,8,11,14,17,20,23)]
+co2_5 <- as.data.frame(co2_5)
+co2_51 <- melt(co2_5,id.vars = c('days'),variable.name = 'Depth',value.name = 'CO2 emission rate')
+co2_51[,1] <- as.double(co2_51[,1])
+co2_51[,3] <- as.double(co2_51[,3])
+ggplot(co2_51,aes(x = days,y = `CO2 emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'CO2 emission rate-5℃')+
+  ylab('CO2 emission rate (mgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+####yanshui-co2####
+meth_51y <- as.matrix(p_data2[1:32,1:30])
+colnames(meth_51y) <- meth_51y[1,]
+meth_51y <- meth_51y[-1,]
+meth_51y <- meth_51y[1:24,c(1,2,5,26,29)]
+meth_51y <- as.data.frame(meth_51y)
+meth_51y1 <- melt(meth_51y,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_51y1[,1] <- as.double(meth_51y1[,1])
+meth_51y1[,3] <- as.double(meth_51y1[,3])
+meth_51y1$flooded <- c(rep('NO',48),rep('YES',48))
+# meth_51y1$Depth[49:96] <- meth_51y1$Depth[1:48]
+
+ggplot(meth_51y1,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'CO2 emission rate-5℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('CO2 emission rate (mgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+
+#####co2-15####
+p_data3 <- read_excel('D:/AAAA-资料E盘/data/培养实验/15°CO2.xlsx')
+co2_15 <- as.matrix(p_data3[1:32,1:23])
+colnames(co2_15) <- co2_15[1,]
+co2_15 <- co2_15[-1,]
+co2_15 <- co2_15[,c(1,2,5,8,11,14,17,20,23)]
+co2_15 <- as.data.frame(co2_15)
+co2_151 <- melt(co2_15,id.vars = c('days'),variable.name = 'Depth',value.name = 'CO2 emission rate')
+co2_151[,1] <- as.double(co2_151[,1])
+co2_151[,3] <- as.double(co2_151[,3])
+ggplot(co2_151,aes(x = days,y = `CO2 emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'CO2 emission rate-15℃')+
+  ylab('CO2 emission rate (mgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+####yanshui-15-co2####
+meth_151y <- as.matrix(p_data3[1:32,1:30])
+colnames(meth_151y) <- meth_151y[1,]
+meth_151y <- meth_151y[-1,]
+meth_151y <- meth_151y[1:24,c(1,2,5,26,29)]
+meth_151y <- as.data.frame(meth_151y)
+meth_151y1 <- melt(meth_151y,id.vars = c('days'),variable.name = 'Depth',value.name = 'methane emission rate')
+meth_151y1[,1] <- as.double(meth_151y1[,1])
+meth_151y1[,3] <- as.double(meth_151y1[,3])
+meth_151y1$flooded <- c(rep('NO',48),rep('YES',48))
+# meth_151y1$Depth[49:96] <- meth_151y1$Depth[1:48]
+
+ggplot(meth_151y1,aes(x = days,y = `methane emission rate`))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'CO2 emission rate-15℃')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('CO2 emission rate (mgC kg-1soil h-1)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+######### Depth ######
+##se = sd(vec) / sqrt(length(vec))
+meth_51$Depth <- as.character(meth_51$Depth)
+m1 <- aggregate(meth_51$`methane emission rate`,by = list(meth_51$Depth),FUN = 'mean')
+m2 <- aggregate(meth_51$`methane emission rate`,by = list(meth_51$Depth),FUN = 'sd')
+meth_52 <- cbind(m1,m2[,2]/sqrt(31))
+colnames(meth_52) <- c("Depth","Mean","SE")
+meth_52$Depth <- factor(meth_52$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                 ,'120-140cm','140-160cm'))
+meth_52 <- meth_52[order(meth_52$Depth),]
+ggplot(meth_52) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("Methane emission rate-5℃")+
+  xlab('Depth')+
+  ylab('Average Methane Emission Rate')+
+  theme_base()
+###15meth###
+meth_151$Depth <- as.character(meth_151$Depth)
+m11 <- aggregate(meth_151$`methane emission rate`,by = list(meth_151$Depth),FUN = 'mean')
+m21 <- aggregate(meth_151$`methane emission rate`,by = list(meth_151$Depth),FUN = 'sd')
+meth_152 <- cbind(m11,m21[,2]/sqrt(31))
+colnames(meth_152) <- c("Depth","Mean","SE")
+meth_152$Depth <- factor(meth_152$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                 ,'120-140cm','140-160cm'))
+meth_152 <- meth_152[order(meth_152$Depth),]
+ggplot(meth_152) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("Methane emission rate-15℃")+
+  xlab('Depth')+
+  ylab('Average Methane Emission Rate')+
+  theme_base()
+
+####methan-5-15####
+meth_515 <- rbind(meth_52,meth_152)
+meth_515$Temp <- rep(c('5℃','15℃'),each = 8)
+
+p1 <- ggplot(meth_515, aes(x=Depth, y=Mean, fill=Temp)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Mean-SE, ymax=Mean+SE), width=.2,
+                position=position_dodge(.9))+
+  # title('Average Methane Emission Rate')+
+  ylab('Methane Emission Rate')+
+  xlab('Depth')+
+  theme_bw()+
+  theme(
+    # panel.border = element_blank(), 
+    panel.grid.major = element_blank(),
+    # panel.grid.minor = element_blank(), 
+    # axis.line = element_line(colour = "black"),
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1,angle = 30),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+gg.gap(plot = p1,segments = c(0.25,0.3),ylim = c(0,35),tick_width = c(0.1,5)
+       ,rel_heights = c(0.3,0,0.7))
+
+
+####CO2####
+
+co2_51$Depth <- as.character(co2_51$Depth)
+m12 <- aggregate(co2_51$`CO2 emission rate`,by = list(co2_51$Depth),FUN = 'mean')
+m22 <- aggregate(co2_51$`CO2 emission rate`,by = list(co2_51$Depth),FUN = 'sd')
+co2_52 <- cbind(m12,m22[,2]/sqrt(31))
+colnames(co2_52) <- c("Depth","Mean","SE")
+co2_52$Depth <- factor(co2_52$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                 ,'120-140cm','140-160cm'))
+co2_52 <- co2_52[order(co2_52$Depth),]
+ggplot(co2_52) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("CO2 emission rate-5℃")+
+  xlab('Depth')+
+  ylab('Average CO2 Emission Rate')+
+  theme_base()
+###15co2###
+co2_151$Depth <- as.character(co2_151$Depth)
+m13 <- aggregate(co2_151$`CO2 emission rate`,by = list(co2_151$Depth),FUN = 'mean')
+m23 <- aggregate(co2_151$`CO2 emission rate`,by = list(co2_151$Depth),FUN = 'sd')
+co2_152 <- cbind(m13,m23[,2]/sqrt(31))
+colnames(co2_152) <- c("Depth","Mean","SE")
+co2_152$Depth <- factor(co2_152$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                   ,'120-140cm','140-160cm'))
+co2_152 <- co2_152[order(co2_152$Depth),]
+ggplot(co2_152) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("CO2 emission rate-15℃")+
+  xlab('Depth')+
+  ylab('Average CO2 Emission Rate')+
+  theme_base()
+
+####methan-5-15####
+co2_515 <- rbind(co2_52,co2_152)
+co2_515$Temp <- rep(c('5℃','15℃'),each = 8)
+
+p2 <- ggplot(co2_515, aes(x=Depth, y=Mean, fill=Temp)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Mean-SE, ymax=Mean+SE), width=.2,
+                position=position_dodge(.9))+
+  # title('Average Methane Emission Rate')+
+  ylab('CO2 Emission Rate')+
+  xlab('Depth')+
+  theme_bw()+
+  theme(
+    # panel.border = element_blank(), 
+    panel.grid.major = element_blank(),
+    # panel.grid.minor = element_blank(), 
+    # axis.line = element_line(colour = "black"),
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1,angle = 30),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+###### anova##########
+###depth#####
+###5-meth##
+#方差齐性检验
+#法1bartlett.test
+meth_5a <- meth_51
+meth_5a$Depth <- factor(meth_5a$Depth,c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                        ,'120-140cm','140-160cm'))
+nom <- bartlett.test(meth_5a$`methane emission rate`~meth_5a$Depth,data = meth_5a)
+nom
+#独立两样本t检验的Welch方法的推广， 可以不要求方差相等
+oneway.test(meth_5a$`methane emission rate`~meth_5a$Depth,data = meth_5a)
+
+##15-meth##
+meth_15a <- meth_151
+meth_15a$Depth <- factor(meth_15a$Depth,c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                        ,'120-140cm','140-160cm'))
+nom <- bartlett.test(meth_15a$`methane emission rate`~meth_15a$Depth,data = meth_15a)
+nom
+oneway.test(meth_15a$`methane emission rate`~meth_15a$Depth,data = meth_15a)
+###5-凑##
+#方差齐性检验
+#法1bartlett.test
+co2_5a <- co2_51
+co2_5a$Depth <- factor(co2_5a$Depth,c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                        ,'120-140cm','140-160cm'))
+nom <- bartlett.test(co2_5a$`CO2 emission rate`~co2_5a$Depth,data = co2_5a)
+nom
+#独立两样本t检验的Welch方法的推广， 可以不要求方差相等
+oneway.test(co2_5a$`CO2 emission rate`~co2_5a$Depth,data = co2_5a)
+
+##15-凑##
+co2_15a <- co2_151
+co2_15a$Depth <- factor(co2_15a$Depth,c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                          ,'120-140cm','140-160cm'))
+nom <- bartlett.test(co2_15a$`CO2 emission rate`~co2_15a$Depth,data = co2_15a)
+nom
+oneway.test(co2_15a$`CO2 emission rate`~co2_15a$Depth,data = co2_15a)
+
+####temp######
+####METH-AVO TWO WAY####
+meth_av <- rbind(meth_5a,meth_15a)
+meth_av$Temp <- rep(c('5℃','15℃'),each = 248)
+meth_av$Temp <- factor(meth_av$Temp)
+meth_av$Depth <- factor(meth_av$Depth)
+dt <- aov(meth_av$`methane emission rate`~Depth + Temp +Depth:Temp,data = meth_av)
+summary(dt)
+meth_av$Depth1 <- rep(seq(10,150,20), each = 31)
+meth_av$Depth1 <- factor(meth_av$Depth1)
+anova.me <- aov(meth_av$`methane emission rate`~ Temp*Depth1,data = meth_av)
+summary(anova.me)
+radon_summary <- group_by(meth_av, Temp,Depth1) %>%
+  summarise(mean=mean(`methane emission rate`), sd=sd(`methane emission rate`)) %>%
+  arrange(desc(mean))
+print(radon_summary)
+
+tukey.me <- TukeyHSD(anova.me)
+print(tukey.me)
+tukey.me <- multcompLetters4(anova.me, tukey.me)
+print(tukey.me)
+cld <- as.data.frame.list(tukey.me$`Temp:Depth1`)
+radon_summary$Tukey <- cld$Letters
+print(radon_summary)
+
+ggplot(radon_summary, aes(x = factor(Depth1), y = mean, fill = Temp, colour = Temp)) + 
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.5)  +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), position = position_dodge(0.9), width = 0.25,
+                show.legend = FALSE) +
+  labs(x="Depth(cm)", y="Methane emission rate") +
+  theme_bw() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0.1, 0.75)) +
+  geom_text(aes(label=Tukey), position = position_dodge(0.90), size = 3, 
+            vjust=-0.8, hjust=-0.5, colour = "gray25") +
+  ylim(0, 38) +
+  geom_text(aes(label=Temp, y = 37), position = position_dodge(0.90), show.legend = FALSE)
+
+
+####CO2-AVO TWO WAY####
+co2_av <- rbind(co2_5a,co2_15a)
+co2_av$Temp <- rep(c('5℃','15℃'),each = 248)
+co2_av$Temp <- factor(co2_av$Temp)
+dt1 <- aov(co2_av$`CO2 emission rate`~Depth + Temp +Depth:Temp,data = co2_av)
+summary(dt1)
+
+co2_av$Depth1 <- rep(seq(10,150,20), each = 31)
+co2_av$Depth1 <- factor(co2_av$Depth1)
+anova.co <- aov(co2_av$`CO2 emission rate`~ Temp*Depth1,data = co2_av)
+summary(anova.co)
+co_summary <- group_by(co2_av, Temp,Depth1) %>%
+  summarise(mean=mean(`CO2 emission rate`), sd=sd(`CO2 emission rate`)) %>%
+  arrange(desc(mean))
+print(co_summary)
+
+tukey.co <- TukeyHSD(anova.co)
+print(tukey.co)
+tukey.co <- multcompLetters4(anova.co, tukey.co)
+print(tukey.co)
+cld1 <- as.data.frame.list(tukey.co$`Temp:Depth1`)
+co_summary$Tukey <- cld1$Letters
+print(radon_summary)
+
+ggplot(co_summary, aes(x = factor(Depth1), y = mean, fill = Temp, colour = Temp)) + 
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.5)  +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd), position = position_dodge(0.9), width = 0.25,
+                show.legend = FALSE) +
+  labs(x="Depth(cm)", y="CO2 emission rate") +
+  theme_bw() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0.1, 0.75)) +
+  geom_text(aes(label=Tukey), position = position_dodge(0.90), size = 3, 
+            vjust=-0.8, hjust=-0.5, colour = "gray25") +
+  ylim(0, 1) +
+  geom_text(aes(label=Temp, y = 0.1), position = position_dodge(0.90), show.legend = FALSE)
+
+
+
+#####FLOODED#####
+meth_5y1
+meth_15y1
+meth_51y1
+meth_151y1
+
+meth_5y1$Depth <- as.character(meth_5y1$Depth)
+m1 <- aggregate(meth_5y1$`methane emission rate`,by = list(meth_5y1$Depth),FUN = 'mean')
+m2 <- aggregate(meth_5y1$`methane emission rate`,by = list(meth_5y1$Depth),FUN = 'sd')
+meth_5y2 <- cbind(m1,m2[,2]/sqrt(31))
+colnames(meth_5y2) <- c("Depth","Mean","SE")
+meth_5y2$Depth <- factor(meth_5y2$Depth,levels = c('0-20cm','20-40cm','0-20cm淹水','0-40cm淹水'))
+meth_5y2 <- meth_5y2[order(meth_5y2$Depth),]
+ggplot(meth_5y2) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("Methane emission rate-5℃")+
+  xlab('Depth')+
+  ylab('Average Methane Emission Rate')+
+  theme_base()
+###15meth###
+meth_15y1$Depth <- as.character(meth_15y1$Depth)
+m11 <- aggregate(meth_15y1$`methane emission rate`,by = list(meth_15y1$Depth),FUN = 'mean')
+m21 <- aggregate(meth_15y1$`methane emission rate`,by = list(meth_15y1$Depth),FUN = 'sd')
+meth_15y2 <- cbind(m11,m21[,2]/sqrt(31))
+colnames(meth_15y2) <- c("Depth","Mean","SE")
+meth_15y2$Depth <- factor(meth_15y2$Depth,levels = c('0-20cm','20-40cm','0-20cm淹水','0-40cm淹水'))
+meth_15y2 <- meth_15y2[order(meth_15y2$Depth),]
+ggplot(meth_15y2) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("Methane emission rate-15℃")+
+  xlab('Depth')+
+  ylab('Average Methane Emission Rate')+
+  theme_base()
+
+####methan-5-15####
+meth_515y <- rbind(meth_5y2,meth_15y2)
+meth_515y$Temp <- rep(c('5℃','15℃'),each = 4)
+
+p11 <- ggplot(meth_515y, aes(x=Depth, y=Mean, fill=Temp)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Mean-SE, ymax=Mean+SE), width=.2,
+                position=position_dodge(.9))+
+  # title('Average Methane Emission Rate')+
+  ylab('Methane Emission Rate')+
+  xlab('Depth')+
+  theme_bw()+
+  theme(
+    # panel.border = element_blank(), 
+    panel.grid.major = element_blank(),
+    # panel.grid.minor = element_blank(), 
+    # axis.line = element_line(colour = "black"),
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1,angle = 30),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+gg.gap(plot = p11,segments = c(0.25,0.3),ylim = c(0,45),tick_width = c(0.1,5)
+       ,rel_heights = c(0.3,0,0.7))
+
+######co2-5-15#####
+meth_51y1
+meth_151y1
+
+meth_51y1$Depth <- as.character(meth_51y1$Depth)
+m1 <- aggregate(meth_51y1$`methane emission rate`,by = list(meth_51y1$Depth),FUN = 'mean')
+m2 <- aggregate(meth_51y1$`methane emission rate`,by = list(meth_51y1$Depth),FUN = 'sd')
+meth_51y2 <- cbind(m1,m2[,2]/sqrt(31))
+colnames(meth_51y2) <- c("Depth","Mean","SE")
+meth_51y2$Depth <- factor(meth_51y2$Depth,levels = c('0-20cm','20-40cm','0-20cm淹水','0-40cm淹水'))
+meth_51y2 <- meth_51y2[order(meth_51y2$Depth),]
+ggplot(meth_51y2) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("CO2 emission rate-5℃")+
+  xlab('Depth')+
+  ylab('Average CO2 Emission Rate')+
+  theme_base()
+###15meth###
+meth_151y1$Depth <- as.character(meth_151y1$Depth)
+m11 <- aggregate(meth_151y1$`methane emission rate`,by = list(meth_151y1$Depth),FUN = 'mean')
+m21 <- aggregate(meth_151y1$`methane emission rate`,by = list(meth_151y1$Depth),FUN = 'sd')
+meth_151y2 <- cbind(m11,m21[,2]/sqrt(31))
+colnames(meth_151y2) <- c("Depth","Mean","SE")
+meth_151y2$Depth <- factor(meth_151y2$Depth,levels = c('0-20cm','20-40cm','0-20cm淹水','0-40cm淹水'))
+meth_151y2 <- meth_151y2[order(meth_151y2$Depth),]
+ggplot(meth_151y2) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("CO2 emission rate-15℃")+
+  xlab('Depth')+
+  ylab('Average CO2 Emission Rate')+
+  theme_base()
+
+####methan-5-15####
+meth_515y1 <- rbind(meth_51y2,meth_151y2)
+meth_515y1$Temp <- rep(c('5℃','15℃'),each = 4)
+
+ggplot(meth_515y1, aes(x=Depth, y=Mean, fill=Temp)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=Mean-SE, ymax=Mean+SE), width=.2,
+                position=position_dodge(.9))+
+  # title('Average Methane Emission Rate')+
+  ylab('CO2 Emission Rate')+
+  xlab('Depth')+
+  theme_bw()+
+  theme(
+    # panel.border = element_blank(), 
+    panel.grid.major = element_blank(),
+    # panel.grid.minor = element_blank(), 
+    # axis.line = element_line(colour = "black"),
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1,angle = 30),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+######ANOVA#####
+meth_5y1
+meth_15y1
+meth_51y1
+meth_151y1
+######flooded-me#####
+meth_av <- rbind(meth_5y1,meth_15y1)
+meth_av$Temp <- rep(c('5℃','15℃'),each = 96)
+meth_av$Temp <- factor(meth_av$Temp)
+meth_av$Depth <- factor(meth_av$Depth)
+meth_av$flooded <- factor(meth_av$flooded)
+dt <- aov(meth_av$`methane emission rate`~Depth + Temp + flooded +Depth:Temp:flooded,data = meth_av)
+summary(dt)
+meth_av$Depth1 <- rep(rep(c('10','20','10f','40f'), each = 24),2)
+meth_av$Depth1 <- factor(meth_av$Depth1)
+anova.me <- aov(meth_av$`methane emission rate`~ Temp*Depth1,data = meth_av)
+summary(anova.me)
+radon_summary <- group_by(meth_av, Temp,Depth1) %>%
+  summarise(mean=mean(`methane emission rate`), sd=sd(`methane emission rate`)) %>%
+  arrange(desc(mean))
+print(radon_summary)
+
+tukey.me <- TukeyHSD(anova.me)
+print(tukey.me)
+tukey.me <- multcompLetters4(anova.me, tukey.me)
+print(tukey.me)
+cld <- as.data.frame.list(tukey.me$`Temp:Depth1`)
+radon_summary$Tukey <- cld$Letters
+print(radon_summary)
+#######flood-co2########
+co2_av <- rbind(meth_51y1,meth_151y1)
+co2_av$Temp <- rep(c('5℃','15℃'),each = 96)
+co2_av$Temp <- factor(co2_av$Temp)
+dt1 <- aov(co2_av$`methane emission rate`~Depth + Temp +Depth:Temp,data = co2_av)
+summary(dt1)
+
+co2_av$Depth1 <- rep(rep(c('10','20','10f','40f'), each = 24),2)
+co2_av$Depth1 <- factor(co2_av$Depth1)
+anova.co <- aov(co2_av$`methane emission rate`~ Temp*Depth1,data = co2_av)
+summary(anova.co)
+co_summary <- group_by(co2_av, Temp,Depth1) %>%
+  summarise(mean=mean(`methane emission rate`), sd=sd(`methane emission rate`)) %>%
+  arrange(desc(mean))
+print(co_summary)
+
+tukey.co <- TukeyHSD(anova.co)
+print(tukey.co)
+tukey.co <- multcompLetters4(anova.co, tukey.co)
+print(tukey.co)
+cld1 <- as.data.frame.list(tukey.co$`Temp:Depth1`)
+co_summary$Tukey <- cld1$Letters
+print(co_summary)
+#######q10########
+meth_q10 <- cbind(meth_5a,meth_15a)
+co2_q10 <- cbind(co2_5a,co2_15a)
+
+meth_q10$Q10 <- meth_q10[,6]/meth_q10[,3]
+me_q10 <- meth_q10[,c(1,2,7)]
+
+co2_q10$Q10 <- co2_q10[,6]/co2_q10[,3]
+co2_q10y <- co2_q10[,c(1,2,7)]
+
+ggplot(me_q10,aes(x = days,y = Q10))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'Methane temperature sensitivity')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Q10(Methane)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+
+ggplot(co2_q10y,aes(x = days,y = Q10))+
+  geom_line(size =1,aes(color = Depth))+
+  geom_point(size =4,shape = 21,aes(fill = Depth))+
+  labs(title = 'CO2 temperature sensitivity')+
+  # ylab(expression(Methane_emission_rate/μgCkg^{-1}*soilh^{-1}))+
+  ylab('Q10(CO2)')+
+  xlab('Days')+
+  theme_base()+
+  theme(
+    legend.position = c(0.9,0.8),
+    legend.title=element_text(colour='black',face = 'bold'),
+    legend.margin=margin(grid::unit(0,"cm")),
+    legend.text=element_text(colour='black',size=15,face="bold"),
+    legend.key.height=grid::unit(0.5,"cm"),
+    legend.key.width=grid::unit(0.5,"cm"),
+    axis.text.x=element_text(size=15,colour='black',vjust = 1,hjust = 1),
+    axis.text.y=element_text(size=15,vjust=0.2,colour='black'),
+    axis.title.y = element_text(size = 15,face = 'bold'),
+    axis.title.x = element_text(size = 15,face = 'bold'),
+    axis.ticks=element_line(size=0.5)
+  )
+#####Q10 BAR#######
+me_q10$Depth <- as.character(me_q10$Depth)
+m1 <- aggregate(me_q10$Q10,by = list(me_q10$Depth),FUN = 'mean')
+m2 <- aggregate(me_q10$Q10,by = list(me_q10$Depth),FUN = 'sd')
+me_q10ms <- cbind(m1,m2[,2]/sqrt(31))
+colnames(me_q10ms) <- c("Depth","Mean","SE")
+me_q10ms$Depth <- factor(me_q10ms$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                 ,'120-140cm','140-160cm'))
+me_q10ms <- me_q10ms[order(me_q10ms$Depth),]
+ggplot(me_q10ms) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("Methane Q10")+
+  xlab('Depth')+
+  ylab('Q10')+
+  theme_base()
+
+co2_q10y$Depth <- as.character(co2_q10y$Depth)
+m1 <- aggregate(co2_q10y$Q10,by = list(co2_q10y$Depth),FUN = 'mean')
+m2 <- aggregate(co2_q10y$Q10,by = list(co2_q10y$Depth),FUN = 'sd')
+co2_q10yms <- cbind(m1,m2[,2]/sqrt(31))
+colnames(co2_q10yms) <- c("Depth","Mean","SE")
+co2_q10yms$Depth <- factor(co2_q10yms$Depth,levels = c('0-20cm','20-40cm','40-60cm','60-80cm','80-100cm','100-120cm'
+                                                   ,'120-140cm','140-160cm'))
+co2_q10yms <- co2_q10yms[order(co2_q10yms$Depth),]
+ggplot(co2_q10yms) +
+  geom_bar( aes(x=Depth, y=Mean), stat="identity", fill="forestgreen", alpha=0.5) +
+  geom_errorbar( aes(x=Depth, ymin=Mean-SE, ymax=Mean+SE), width=0.4, colour="orange", alpha=0.9, size=1.5) +
+  ggtitle("CO2 Q10")+
+  xlab('Depth')+
+  ylab('Q10')+
+  theme_base()
+
+me_q10$Depth <- factor(me_q10$Depth)
+dt <- aov(me_q10$Q10 ~Depth,data = me_q10)
+summary(dt)
+me_q10$Depth1 <- rep(seq(10,150,20), each = 31)
+me_q10$Depth1 <- factor(me_q10$Depth1)
+anova.me <- aov(me_q10$Q10 ~Depth1,data = me_q10)
+summary(anova.me)
+radon_summary <- group_by(me_q10,Depth1) %>%
+  summarise(mean=mean(Q10), sd=sd(Q10)) %>%
+  arrange(desc(mean))
+print(radon_summary)
+
+tukey.me <- TukeyHSD(anova.me)
+print(tukey.me)
+tukey.me <- multcompLetters4(anova.me, tukey.me)
+print(tukey.me)
+cld <- as.data.frame.list(tukey.me$Depth1)
+radon_summary$Tukey <- cld$Letters
+print(radon_summary)
+
+#####
+
+co2_q10y$Depth <- factor(co2_q10y$Depth)
+dt <- aov(co2_q10y$Q10 ~Depth,data = co2_q10y)
+summary(dt)
+co2_q10y$Depth1 <- rep(seq(10,150,20), each = 31)
+co2_q10y$Depth1 <- factor(co2_q10y$Depth1)
+anova.me <- aov(co2_q10y$Q10 ~Depth1,data = co2_q10y)
+summary(anova.me)
+radon_summary <- group_by(co2_q10y, Depth1) %>%
+  summarise(mean=mean(Q10), sd=sd(Q10)) %>%
+  arrange(desc(mean))
+print(radon_summary)
+
+tukey.me <- TukeyHSD(anova.me)
+print(tukey.me)
+tukey.me <- multcompLetters4(anova.me, tukey.me)
+print(tukey.me)
+cld <- as.data.frame.list(tukey.me$Depth1)
+radon_summary$Tukey <- cld$Letters
+print(radon_summary)
