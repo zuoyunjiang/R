@@ -44,3 +44,12 @@ for(i in 1:length(t)){
 plot(t, CO2$`co2-cumulative emissions`, type="l", col="black", xlab="Time (days)", ylab="CO2 flux")
 lines(t, CO2_model, col="red",lwd =2)
 legend("topright", c("Observed CO2 flux", "Modelled CO2 flux"), col=c("black", "red"), lty=1)
+
+
+library(readxl)
+library(zoo)
+CO25 <- read_excel('D:/AAAA-资料E盘/data/培养实验/5°CO2.xlsx')
+CO2FLUX <- as.data.frame(CO25[2:32,c(1,2,5,8,11,14,17,20,23)])
+CO2FLUX[,2] <- as.double(CO2FLUX[,2])
+# filter(CO2FLUX$...2/2, rep(1, 2))*24/1000
+rollmean(CO2FLUX$...2,2)*24/1000
